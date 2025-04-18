@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 173 80% 40%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 173 80% 40%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 0%; /* Changed to pure black */
+    --foreground: 210 40% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 173 80% 40%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 173 80% 40%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 173 80% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #000000; /* Changed to pure black */
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Update the glass-card styles for better contrast against black */
+.glass-card {
+  background: rgba(18, 18, 18, 0.7); /* Slightly lighter than pure black */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.5s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 15px rgba(0, 212, 181, 0.5);
+  transform: translateY(-5px);
+}
+
+.glow-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.glow-button:hover {
+  box-shadow: 0 0 15px rgba(0, 211, 181, 0.5);
+  transform: translateY(-2px);
+}
+
+.glow-button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  transform: rotate(45deg);
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.7s ease;
+  opacity: 0;
+}
+
+.glow-button:hover::before {
+  animation: sheen 1.5s forwards;
+}
+
+/* Update the gradient-hover class to use shadow transition */
+.gradient-hover {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.gradient-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 212, 181, 0.5);
+}
+
+.gradient-hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(45deg, #00a3b5, #00d4b5);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.gradient-hover:hover::before {
+  opacity: 1;
+}
+
+.gradient-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 211, 181, 0.3);
+}
+
+@keyframes sheen {
+  0% {
+    transform: translateY(-50%) translateX(-50%) rotate(45deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(150%) translateX(150%) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Smooth scrolling with momentum */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    transition-duration: 0.7s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter,
+      backdrop-filter;
+  }
+}
+
+/* Button ripple effect */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-ripple:focus:not(:active)::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(30, 30);
+    opacity: 0;
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  h1,
+  .text-4xl,
+  .text-5xl,
+  .text-6xl {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+  h2,
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+  h3,
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+  p,
+  .text-xl {
+    font-size: 1rem !important;
+  }
+  .text-lg {
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Equal button sizes */
+.btn-equal {
+  min-width: 120px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .btn-equal {
+    min-width: 100px;
+    height: 36px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+}
+
